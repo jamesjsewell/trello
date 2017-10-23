@@ -2,12 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Backbone from "backbone";
 import init from "./init";
-import _ from "underscore"
+import _ from "underscore";
 
 const app = function() {
 	document.querySelector(".container").innerHTML = `<h1>trello</h1>`;
 
-	var output = {}
+	var output = {};
 
 	var a = {
 		id: "59e4d6011ec4404c12e0e260",
@@ -8900,18 +8900,23 @@ const app = function() {
 
 	//checklists checkItems name.   cards > idChecklists
 
-	var cards = _.find(a.cards, (card)=>{
-		console.log(card)
-		if(card.idList === "59e655c16c4d18ca18914bb1"){
+	var cards = _.filter(a.cards, card => {
+		if (card.idList === "59e64d9c090e715e98525f31") {
+			console.log("card: ", card);
+			var checklists = _.filter(a.checklists, checklist => {
+				console.log(checklist);
+				if (checklist.idCard === card.id) {
+					output[card.name] = {
+						description: card.desc,
+						checkItems: checklist.checkItems
+					};
+				}
+			});
 			return card
 		}
-	})
+	});
 
-	var checklists = _.find(a.checklists, (checklist)=>{
-
-
-	})
-	console.log(cards);
+	console.log(output)
 };
 
 // x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..x..
